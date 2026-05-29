@@ -56,12 +56,75 @@
   animation: coverIntroCursorBlink 0.75s steps(1) infinite;
 }
 
-.cover__main-photo {
+.cover__photo-frame {
+  position: relative;
   width: 340px;
   height: 340px;
   margin-top: 15px;
   border-radius: 10px;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 16px 34px rgba(95, 25, 25, 0.1);
+}
+
+.cover__main-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
   object-fit: cover; /* 이미지가 컨테이너를 꽉 채우도록 설정 */
+}
+
+.cover__photo-petals {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cover__photo-petals::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 38%, rgba(95, 25, 25, 0.04));
+  pointer-events: none;
+}
+
+.cover__petal {
+  position: absolute;
+  left: var(--petal-left);
+  top: -16%;
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * 1.45);
+  border-radius: 80% 20% 70% 30%;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.95) 0 14%, transparent 15%),
+    linear-gradient(135deg, rgba(255, 244, 246, 0.98), rgba(244, 172, 184, 0.82) 54%, rgba(210, 116, 136, 0.72));
+  box-shadow: 0 1px 4px rgba(95, 25, 25, 0.12);
+  opacity: var(--petal-opacity);
+  transform: translate3d(-50%, -20px, 0) rotate(var(--petal-rotate));
+  animation: coverPetalFall var(--petal-duration) linear var(--petal-delay) infinite;
+  animation-play-state: paused;
+  will-change: transform, opacity;
+}
+
+.cover__petal:nth-child(3n) {
+  border-radius: 50% 80% 35% 70%;
+  background:
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.95) 0 12%, transparent 13%),
+    linear-gradient(150deg, rgba(255, 248, 238, 0.98), rgba(238, 191, 153, 0.78) 58%, rgba(202, 132, 101, 0.66));
+}
+
+.cover__petal:nth-child(4n) {
+  width: calc(var(--petal-size) * 0.7);
+  height: calc(var(--petal-size) * 0.7);
+  border-radius: 999px;
+  background: rgba(255, 239, 214, 0.85);
+}
+
+.cover__content--visible .cover__petal {
+  animation-play-state: running;
 }
   
 .cover__person {
@@ -111,6 +174,30 @@
   }
 }
 
+@keyframes coverPetalFall {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, -24px, 0) rotate(var(--petal-rotate)) scale(0.86);
+  }
+
+  10% {
+    opacity: var(--petal-opacity);
+  }
+
+  50% {
+    transform: translate3d(calc(-50% + var(--petal-drift) * 0.45), 185px, 0) rotate(calc(var(--petal-rotate) + 150deg)) scale(1);
+  }
+
+  88% {
+    opacity: var(--petal-opacity);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(-50% + var(--petal-drift)), 396px, 0) rotate(calc(var(--petal-rotate) + 360deg)) scale(0.9);
+  }
+}
+
 .cover__line {
   border-radius: 2px;
   margin-top: 30px;
@@ -123,9 +210,12 @@
   border-radius: 2px;
   content: '';
   display: block;
-  width: 100%;
+  width: 0;
   height: 100%;
-  background-color: rgb(95, 25, 25);;
+  background-color: rgb(95, 25, 25);
+}
+
+.cover__line--playing::after {
   animation: playAnimation 20s infinite; /* 애니메이션 지속 시간 및 무한 반복 설정 */
 }
 
@@ -141,6 +231,15 @@
 .cover__music-btn:focus {
   cursor: pointer;
   color:rgb(214, 69, 69);
+}
+
+.cover__music-notice {
+  margin: 12px 24px 0;
+  color: rgb(95, 25, 25);
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  opacity: 0.78;
 }
 
 @keyframes coverIntroTextAppear {
@@ -173,12 +272,12 @@
 }
 
 @media (max-width: 390px) {
-  .cover__main-photo,
+  .cover__photo-frame,
   .cover__line {
     width: min(340px, calc(100vw - 44px));
   }
 
-  .cover__main-photo {
+  .cover__photo-frame {
     height: min(340px, calc(100vw - 44px));
   }
 }
@@ -187,6 +286,7 @@
   .cover-intro,
   .cover-intro__text,
   .cover-intro__cursor,
+  .cover__petal,
   .cover__content {
     animation: none;
     transition: none;
@@ -199,5 +299,9 @@
   .cover__content {
     opacity: 1;
     transform: none;
+  }
+
+  .cover__photo-petals {
+    display: none;
   }
 }

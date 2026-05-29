@@ -12,6 +12,7 @@ import './css/SurveyModal.css'
 import './css/Submit.css'
 import './css/Comment.css'
 import './css/Quiz.css'
+import './css/RibbonDivider.css'
 
 import Cover from './pages/Cover.js'
 import Invitation from './pages/Invitation.js';
@@ -21,6 +22,8 @@ import Location from './pages/Location.js';
 import ImgGallery from './pages/ImgGallery.js';
 import Footer from './components/Footer.js';
 import SurveyModal from './components/SurveyModal.js';
+import ScrollReveal from './components/ScrollReveal.js';
+import RibbonDivider from './components/RibbonDivider.js';
 // import Submit from './pages/Submit.js';
 import Comment from './pages/Comment.js';
 import Quiz from './pages/Quiz.js';
@@ -44,15 +47,16 @@ function App() {
     <div className="App">
       {isModalOpen && <SurveyModal closeModal={closeModal} />}
       <Cover/>
-      <Invitation />
-      <Calendar />
-      <ImgGallery />
-      <Location />
+      <ScrollReveal variant="soft"><Invitation /></ScrollReveal>
+      <ScrollReveal variant="soft"><RibbonDivider /></ScrollReveal>
+      <ScrollReveal variant="up"><Calendar /></ScrollReveal>
+      <ScrollReveal variant="zoom"><ImgGallery /></ScrollReveal>
+      <ScrollReveal variant="left"><Location /></ScrollReveal>
       {/* <Submit openModal={openModal}/> */}
-      <Quiz/>
-      <Contact />
-      <Comment />
-      <Footer />
+      <ScrollReveal variant="right"><Quiz/></ScrollReveal>
+      <ScrollReveal variant="soft"><Contact /></ScrollReveal>
+      <ScrollReveal variant="up"><Comment /></ScrollReveal>
+      <ScrollReveal variant="soft"><Footer /></ScrollReveal>
     </div>
   );
 }
