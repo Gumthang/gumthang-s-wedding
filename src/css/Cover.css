@@ -1,0 +1,307 @@
+.cover {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fbf7f1;
+}
+
+.cover__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1.1s ease, transform 1.1s ease;
+}
+
+.cover__content--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cover-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.95) 0%, rgba(251, 247, 241, 0.94) 36%, rgba(239, 228, 217, 0.96) 100%);
+  pointer-events: none;
+  animation: coverIntroDisappear 0.75s ease 2.85s forwards;
+}
+
+.cover-intro__text {
+  min-height: 1.45em;
+  margin: 0;
+  font-size: clamp(28px, 7vw, 42px);
+  line-height: 1.45;
+  letter-spacing: 0.08em;
+  color: rgb(95, 25, 25);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: coverIntroTextAppear 0.8s ease forwards;
+}
+
+.cover-intro__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 6px;
+  background-color: rgb(95, 25, 25);
+  vertical-align: -0.08em;
+  animation: coverIntroCursorBlink 0.75s steps(1) infinite;
+}
+
+.cover__photo-frame {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  margin-top: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 16px 34px rgba(95, 25, 25, 0.1);
+}
+
+.cover__main-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover; /* 이미지가 컨테이너를 꽉 채우도록 설정 */
+}
+
+.cover__photo-petals {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cover__photo-petals::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 38%, rgba(95, 25, 25, 0.04));
+  pointer-events: none;
+}
+
+.cover__petal {
+  position: absolute;
+  left: var(--petal-left);
+  top: -16%;
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * 1.45);
+  border-radius: 80% 20% 70% 30%;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.95) 0 14%, transparent 15%),
+    linear-gradient(135deg, rgba(255, 244, 246, 0.98), rgba(244, 172, 184, 0.82) 54%, rgba(210, 116, 136, 0.72));
+  box-shadow: 0 1px 4px rgba(95, 25, 25, 0.12);
+  opacity: var(--petal-opacity);
+  transform: translate3d(-50%, -20px, 0) rotate(var(--petal-rotate));
+  animation: coverPetalFall var(--petal-duration) linear var(--petal-delay) infinite;
+  animation-play-state: paused;
+  will-change: transform, opacity;
+}
+
+.cover__petal:nth-child(3n) {
+  border-radius: 50% 80% 35% 70%;
+  background:
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.95) 0 12%, transparent 13%),
+    linear-gradient(150deg, rgba(255, 248, 238, 0.98), rgba(238, 191, 153, 0.78) 58%, rgba(202, 132, 101, 0.66));
+}
+
+.cover__petal:nth-child(4n) {
+  width: calc(var(--petal-size) * 0.7);
+  height: calc(var(--petal-size) * 0.7);
+  border-radius: 999px;
+  background: rgba(255, 239, 214, 0.85);
+}
+
+.cover__content--visible .cover__petal {
+  animation-play-state: running;
+}
+  
+.cover__person {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cover__icon-heart {
+  animation: heartbeat 1s infinite; 
+  margin: 0 15px;
+  color: rgb(214, 69, 69);
+}
+
+.cover__date {
+  margin-top: 8px;
+  font-size: x-large;
+}
+
+.cover__place {
+  margin-top: 8px;
+  font-size: x-large;
+}
+
+@keyframes playAnimation {
+  0% {
+    width: 0
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes coverPetalFall {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50%, -24px, 0) rotate(var(--petal-rotate)) scale(0.86);
+  }
+
+  10% {
+    opacity: var(--petal-opacity);
+  }
+
+  50% {
+    transform: translate3d(calc(-50% + var(--petal-drift) * 0.45), 185px, 0) rotate(calc(var(--petal-rotate) + 150deg)) scale(1);
+  }
+
+  88% {
+    opacity: var(--petal-opacity);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(-50% + var(--petal-drift)), 396px, 0) rotate(calc(var(--petal-rotate) + 360deg)) scale(0.9);
+  }
+}
+
+.cover__line {
+  border-radius: 2px;
+  margin-top: 30px;
+  width: 340px;
+  height: 4px;
+  background: linear-gradient(to right, rgb(170, 138, 138), rgb(170, 138, 138)); /* 시작 색상부터 끝 색상까지의 그라데이션 설정 */
+}
+
+.cover__line::after {
+  border-radius: 2px;
+  content: '';
+  display: block;
+  width: 0;
+  height: 100%;
+  background-color: rgb(95, 25, 25);
+}
+
+.cover__line--playing::after {
+  animation: playAnimation 20s infinite; /* 애니메이션 지속 시간 및 무한 반복 설정 */
+}
+
+.cover__icon-box {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 300px;
+}
+
+.cover__music-btn:hover,
+.cover__music-btn:focus {
+  cursor: pointer;
+  color:rgb(214, 69, 69);
+}
+
+.cover__music-notice {
+  margin: 12px 24px 0;
+  color: rgb(95, 25, 25);
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  opacity: 0.78;
+}
+
+@keyframes coverIntroTextAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes coverIntroCursorBlink {
+  0%, 48% {
+    opacity: 1;
+  }
+  49%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes coverIntroDisappear {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 390px) {
+  .cover__photo-frame,
+  .cover__line {
+    width: min(340px, calc(100vw - 44px));
+  }
+
+  .cover__photo-frame {
+    height: min(340px, calc(100vw - 44px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cover-intro,
+  .cover-intro__text,
+  .cover-intro__cursor,
+  .cover__petal,
+  .cover__content {
+    animation: none;
+    transition: none;
+  }
+
+  .cover-intro {
+    display: none;
+  }
+
+  .cover__content {
+    opacity: 1;
+    transform: none;
+  }
+
+  .cover__photo-petals {
+    display: none;
+  }
+}
