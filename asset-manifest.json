@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/gumthang-s-wedding/static/css/main.85ff77a2.css",
-    "main.js": "/gumthang-s-wedding/static/js/main.61d4132b.js",
+    "main.css": "/gumthang-s-wedding/static/css/main.447c18c4.css",
+    "main.js": "/gumthang-s-wedding/static/js/main.ae0a9daf.js",
     "static/js/787.d00bc756.chunk.js": "/gumthang-s-wedding/static/js/787.d00bc756.chunk.js",
     "static/media/taeyeon_poem.mp3": "/gumthang-s-wedding/static/media/taeyeon_poem.13d16db4a02836cf5d9d.mp3",
     "static/media/부크크명조_얇은글씨.woff": "/gumthang-s-wedding/static/media/부크크명조_얇은글씨.4dd24ae27c5fa573aaf0.woff",
@@ -22,12 +22,12 @@
     "static/media/s1.png": "/gumthang-s-wedding/static/media/s1.7ffa9f05ab15c8c8c95e.png",
     "static/media/naver.webp": "/gumthang-s-wedding/static/media/naver.7717483eebafa7435918.webp",
     "index.html": "/gumthang-s-wedding/index.html",
-    "main.85ff77a2.css.map": "/gumthang-s-wedding/static/css/main.85ff77a2.css.map",
-    "main.61d4132b.js.map": "/gumthang-s-wedding/static/js/main.61d4132b.js.map",
+    "main.447c18c4.css.map": "/gumthang-s-wedding/static/css/main.447c18c4.css.map",
+    "main.ae0a9daf.js.map": "/gumthang-s-wedding/static/js/main.ae0a9daf.js.map",
     "787.d00bc756.chunk.js.map": "/gumthang-s-wedding/static/js/787.d00bc756.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.85ff77a2.css",
-    "static/js/main.61d4132b.js"
+    "static/css/main.447c18c4.css",
+    "static/js/main.ae0a9daf.js"
   ]
 }
